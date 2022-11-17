@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import routes from "./routes";
 
 dotenv.config({ path: "./.env.local" });
 
@@ -18,9 +19,7 @@ app.use(
   })
 );
 
-app.use("/", (req, res) => {
-  res.send("Hello world!")
-})
+app.use(routes);
 
 app.use((req, res) => {
   res.status(404);
