@@ -8,6 +8,10 @@ import { userRepository } from "../repositories/userRepository";
 dotenv.config({ path: "./.env.local" });
 
 export class AuthController {
+  index(req: Request, res: Response) {
+    res.send("ok");
+  }
+
   async authenticate(req: Request, res: Response) {
     const { email, password } = req.body;
 
