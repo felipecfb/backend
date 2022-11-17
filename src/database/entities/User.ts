@@ -3,11 +3,14 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  BeforeInsert,
+  BeforeUpdate,
 } from "typeorm";
+import { hashPassword } from "../../crypt";
 
 @Entity("users")
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Column({ type: "varchar", nullable: false })
@@ -18,6 +21,12 @@ export class User {
 
   @Column({ type: "varchar", nullable: false })
   password!: string;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPassword() {
+    this.password = hashPassword(this.password);
+  }
 
   @Column({ type: "varchar", default: "subscriber" })
   role!: string;
