@@ -6,6 +6,18 @@ import { userRepository } from "../repositories/userRepository";
 dotenv.config({ path: "./.env.local" });
 
 export class UserController {
+  async getUsers(req: Request, res: Response) {
+    const users = await userRepository.find({
+      select: {
+        name: true,
+        email: true,
+        role: true,
+      },
+    });
+
+    res.json(users);
+  }
+
   async create(req: Request, res: Response) {
     const { name, email, password, role } = req.body;
 
