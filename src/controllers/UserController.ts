@@ -9,6 +9,7 @@ export class UserController {
   async getUsers(req: Request, res: Response) {
     const users = await userRepository.find({
       select: {
+        id: true,
         name: true,
         email: true,
         role: true,
